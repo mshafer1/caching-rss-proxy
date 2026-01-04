@@ -6,3 +6,12 @@ A lightweight docker container that provides:
   - A max size may be specified to set a limit
 - responses in xml or json
 - upstream queries are throttled to 1/hr (to prevent overloading source and to be a good net citizen)
+
+# ⚠ Deprecated ⚠
+
+I started on this project thinking that a web server that loaded the desired feed and returned it would be the way to go.
+
+However, as I got close to deploying it, I realized that this means yet another server to secure and that it would be 
+simpler to build the retrieving/caching/building code into a pipeline and dump the results into a static web host.
+
+See TODO for where this project went next.
