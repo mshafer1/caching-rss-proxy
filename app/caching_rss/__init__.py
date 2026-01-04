@@ -1,6 +1,7 @@
 import re
 
 import flask
+import flask_cors
 import markupsafe
 import xmltodict
 
@@ -9,7 +10,7 @@ from caching_rss import _config, _datastore, _rate_limit
 APP = flask.Flask(__name__)
 APP.config["JSONIFY_SORT_KEYS"] = False
 _CACHE = _rate_limit.RateLimitedFeedStore()
-
+flask_cors.CORS(APP)
 
 @APP.route("/")
 def index():
