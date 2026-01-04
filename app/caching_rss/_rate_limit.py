@@ -1,7 +1,11 @@
 import time
 import typing
+import logging
 
 import requests
+
+_logger = logging.getLogger(__name__)
+_logger.addHandler(logging.NullHandler())
 
 
 class CacheInfo(typing.NamedTuple):
@@ -37,15 +41,18 @@ class RateLimitedFeedStore:
         current_bin = _get_ttl_bin()
         if uri not in self._data:
             self._cache_miss += 1
+            _logger.info("Fetching RSS from upstream...")
             result = self._fetch(uri)
             self._data[uri] = (current_bin, result)
             return result
 
         ttl_bin, cached = self._data[uri]
         if ttl_bin == current_bin:
+            _logger.info("Returning memory cached RSS feed...")
             self._cache_hit += 1
             return cached
         else:
+            _logger.info("Fetching RSS from upstream...")
             self._cache_miss += 1
             result = self._fetch(uri)
             self._data[uri] = (current_bin, result)

@@ -1,6 +1,11 @@
 import os.path
 import pickle
+import logging
 
+from caching_rss import _config
+
+_logger = logging.getLogger(__name__)
+_logger.addHandler(logging.NullHandler())
 
 class DataStore:
     def __init__(self, name: str):
@@ -18,13 +23,16 @@ class DataStore:
 
     def _load(self):
         if not os.path.exists(self._filename):
+            _logger.info("Loading blank for feed")
             self._data = {}
             return
 
         try:
+            _logger.info("Loading data file for feed")
             with open(self._filename, "rb") as f:
                 self._data = pickle.load(f)
         except Exception:
+            _logger.info("Failed to load data file, setting to empty data")
             self._data = {}
 
     def __enter__(self):

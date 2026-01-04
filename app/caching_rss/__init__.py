@@ -90,6 +90,7 @@ def rss_feed():
         if APP.config.get("TESTING", False):
             print("Warning, feed not allowed:", feed)
         else:
+            print("Rejecting feed:", feed, "not in:\n", _config.RSS_ALLOWED_FEEDS)
             return flask.Response("Feed not allowed", status=403)
 
     return_json = _to_bool(flask.request.args.get("json", "0"))
