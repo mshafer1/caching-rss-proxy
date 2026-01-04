@@ -14,4 +14,4 @@ I started on this project thinking that a web server that loaded the desired fee
 However, as I got close to deploying it, I realized that this means yet another server to secure and that it would be 
 simpler to build the retrieving/caching/building code into a pipeline and dump the results into a static web host.
 
-See TODO for where this project went next.
+See https://github.com/mshafer1/rss-feeds for where this project went next.
