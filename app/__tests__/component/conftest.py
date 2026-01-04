@@ -51,8 +51,8 @@ def mock_data(mocker: pytest_mock.plugin.MockerFixture) -> typing.Generator[str,
     # NOTE: 2006 is chosen because it began on a Sunday, making date calculations easier
     feed_over_time = {
         datetime.date(2006, 1, 1): [_SAMPLE_DATA[0]],
-        datetime.date(2006, 1, 2): _SAMPLE_DATA[:2],
-        datetime.date(2006, 1, 3): _SAMPLE_DATA[1:3],
+        datetime.date(2006, 1, 2): _SAMPLE_DATA[:2][::-1],
+        datetime.date(2006, 1, 3): _SAMPLE_DATA[1:3][::-1],
     }
 
     def _get_feed():
