@@ -29,6 +29,3 @@ def test___particular_date___fetches_expected_data(
     d = xmltodict.parse(r.text)  # implicitly assert a no-throw
     snapshot.assert_match(xmltodict.unparse(d, pretty=True), "expected.xml")
 
-
-def test___limited_rss__cache_grows():
-    raise NotImplementedError()
