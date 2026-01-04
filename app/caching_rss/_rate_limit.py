@@ -4,15 +4,9 @@ import typing
 import requests
 
 
-class CacheInfo:
+class CacheInfo(typing.NamedTuple):
     hits: int
     misses: int
-    __slots__ = ("hits", "misses")
-
-    def __init__(self, hits: int, misses: int):
-        self.hits = hits
-        self.misses = misses
-
 
 def _get_ttl_bin(seconds=3600):
     """Return the same value within `seconds` time period"""
@@ -40,15 +34,14 @@ class RateLimitedFeedStore:
         return r.text
 
     def get_feed(self, uri: str):
-
+        current_bin = _get_ttl_bin()
         if uri not in self._data:
             self._cache_miss += 1
             result = self._fetch(uri)
-            self._data[uri] = (_get_ttl_bin(), result)
+            self._data[uri] = (current_bin, result)
             return result
 
         ttl_bin, cached = self._data[uri]
-        current_bin = _get_ttl_bin()
         if ttl_bin == current_bin:
             self._cache_hit += 1
             return cached
