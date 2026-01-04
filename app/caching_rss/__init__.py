@@ -21,7 +21,11 @@ def _to_bool(value: str) -> bool:
 
 
 def _merge_data_with_stored(data: dict, uri: str) -> dict:
-    # assumption, new data is sorted newest to oldest
+    # assumptions:
+    # - new data is sorted newest to oldest
+    # - old data is sorted newest to oldest
+    # - old data may have items in new data
+    # - since both are sorted newest to oldest, we can just prepend new items until we hit an old one
     name = markupsafe.escape(re.sub(r"[^a-zA-Z0-9\.]", "_", uri))
     # TODO: make this configurable
     list_key = "item" if "item" in data.get("rss", {}).get("channel", {}) else "entry"
@@ -40,12 +44,22 @@ def _merge_data_with_stored(data: dict, uri: str) -> dict:
         if isinstance(items, dict):
             items = [items]
         # merge items
-        # quick_search_stored_items = set(stored_items) # TODO likely to die because of unhashable dicts
-        all_items = [item for item in items if item not in stored_items] + stored_items
+        if not stored_items:
+            all_items = items
+        else:
+            newest_old_items = stored_items[0]
+            all_items = []
+            for item in items:
+                if item == newest_old_items:
+                    break
+                all_items.append(item)
+            all_items.extend(stored_items)
+
         # enforce max size
         if _config.RSS_MAX_SIZE > 0:
             all_items = all_items[: _config.RSS_MAX_SIZE + 1]
 
+        # bring in the current version of all other fields
         store.clear()
         store.update(data)
         stored_working_point = store
