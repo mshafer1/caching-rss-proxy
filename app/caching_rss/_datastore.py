@@ -11,7 +11,7 @@ class DataStore:
     def __init__(self, name: str):
         self._data = None
         self._name = name
-        self._filename = f"{name}.dat"
+        self._filename = os.path.join(_config.RSS_STORAGE_PATH, f"{name}.dat")
 
     @property
     def data(self):
