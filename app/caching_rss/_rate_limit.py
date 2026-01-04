@@ -3,7 +3,8 @@ import typing
 
 import requests
 
-class CacheInfo():
+
+class CacheInfo:
     hits: int
     misses: int
     __slots__ = ("hits", "misses")
@@ -27,7 +28,7 @@ class RateLimitedFeedStore:
     @property
     def cache_info(self):
         return CacheInfo(self._cache_hit, self._cache_miss)
-    
+
     def clear(self):
         self._data.clear()
         self._cache_hit = 0

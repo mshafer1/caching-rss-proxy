@@ -39,17 +39,20 @@ def test___particular_date___fetches_expected_data(
         ["2006-01-01", "2006-01-03"],
         ["2006-01-03"],
     ],
-    ids=lambda d: '--'.join(d),
+    ids=lambda d: "--".join(d),
 )
-def test__over_time__fetches_expected_data(date_range: list[str], client: flask.testing.FlaskClient,
+def test__over_time__fetches_expected_data(
+    date_range: list[str],
+    client: flask.testing.FlaskClient,
     mock_data: str,
     freezer,
-    snapshot: pytest_snapshot.plugin.Snapshot,):
+    snapshot: pytest_snapshot.plugin.Snapshot,
+):
     for day in date_range[:-1]:
         freezer.move_to(day)
         r = client.get(f"/rss?feed={mock_data}")
         assert r.status_code == 200
-    
+
     last_day = date_range[-1]
     freezer.move_to(last_day)
     r = client.get(f"/rss?feed={mock_data}")

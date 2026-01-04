@@ -59,7 +59,7 @@ def test___time___query___cache_is_specific_to_feed(
     test_data = get_time_series(
         freezer, day_base, get_feed=lambda: client.get(f"/rss?feed={feed2}")
     )
-    
+
     assert test_data == [
         ("00:00:00", 3, 4),
         ("00:10:00", 4, 4),
