@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed>
+	<id>19E428F2-D0FF-4112-AE42-A718218767E0</id>
+	<entry>
+		<id>1</id>
+		<value>A</value>
+	</entry>
+	<entry>
+		<id>2</id>
+		<value>B</value>
+	</entry>
+</feed>

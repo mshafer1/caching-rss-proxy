@@ -1,0 +1,36 @@
+[tool.poetry]
+name = "caching-rss"
+version = "0.1.0"
+description = "A lightweight RSS caching proxy"
+authors = []
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+flask = "^3.1.2"
+flask-cors = "^6.0.2"
+requests = "^2.32.5"
+xmltodict = "^1.0.2"
+python-decouple = "^3.8"
+markupsafe = "^3.0.3"
+pytest-mock = "^3.15.1"
+
+
+[tool.poetry.group.test.dependencies]
+pytest = "^9.0.2"
+pytest-cov = "^7.0.0"
+pytest-snapshot = "^0.9.0"
+pytest-freezegun = "^0.4.2"
+
+
+[tool.poetry.group.lint.dependencies]
+ni-python-styleguide = "^0.4.7"
+mypy = "^1.19.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[pytest]
+testpaths = ["caching_rss", "__tests__"]
